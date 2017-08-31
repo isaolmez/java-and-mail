@@ -1,2 +1,2 @@
-# java-and-mail
-Java mail libraries and examples
+# Java and Mail
+Currently includes Java Mail API examples
