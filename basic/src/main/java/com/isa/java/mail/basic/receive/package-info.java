@@ -8,4 +8,4 @@
  * Gmail POP port: 995
  * Gmail POP TLS/SSL required: yes
  */
-package com.isa.java.mail.receive;
+package com.isa.java.mail.basic.receive;

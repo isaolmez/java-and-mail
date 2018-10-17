@@ -1,4 +1,4 @@
-package com.isa.java.mail.util;
+package com.isa.java.mail.basic.util;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,6 +1,6 @@
-package com.isa.java.mail.general;
+package com.isa.java.mail.basic.general;
 
-import com.isa.java.mail.util.ApplicationProperties.GmailPopProperties;
+import com.isa.java.mail.basic.util.ApplicationProperties.GmailPopProperties;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;

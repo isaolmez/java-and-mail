@@ -1,6 +1,8 @@
-package com.isa.java.mail.search;
+package com.isa.java.mail.basic.search;
 
-import com.isa.java.mail.util.ApplicationProperties.GmailImapProperties;
+import com.isa.java.mail.basic.util.ApplicationProperties.GmailImapProperties;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.Properties;
 import javax.mail.Folder;
@@ -13,9 +15,8 @@ import javax.mail.search.ComparisonTerm;
 import javax.mail.search.RecipientStringTerm;
 import javax.mail.search.SearchTerm;
 import javax.mail.search.SentDateTerm;
-import javax.mail.search.SubjectTerm;
 
-public class SearchMailsClientSide {
+public class SearchMails {
 
     private static final String PROTOCOL = "imap";
     private static final String FOLDER = "INBOX";
@@ -29,13 +30,16 @@ public class SearchMailsClientSide {
     public static void check(String host, int port, String storeType, String user,
             String password) {
         try {
+            // Get session
             Properties properties = new Properties();
             properties.setProperty("mail.imap.ssl.enable", "true");
             Session emailSession = Session.getInstance(properties);
 
+            // Get store
             Store store = emailSession.getStore(storeType);
             store.connect(host, port, user, password);
 
+            // Get folder
             Folder emailFolder = store.getFolder(FOLDER);
             emailFolder.open(Folder.READ_ONLY);
 
@@ -45,21 +49,20 @@ public class SearchMailsClientSide {
             int newMessageCount = emailFolder.getNewMessageCount();
             System.out.println("New message count: " + newMessageCount);
 
-            // Get the messages
-            SearchTerm searchTerm = new SubjectTerm("hi");
-            Message[] messages = emailFolder.getMessages(1, 10);
+            // Search the messages
+            Date date = Date.from(LocalDateTime.now().minusDays(1).toInstant(ZoneOffset.UTC));
+            SearchTerm searchTerm = new DateAndToSearchTerm(date, user);
+            Message[] messages = emailFolder.search(searchTerm);
+            System.out.println("Message count: " + messages.length);
 
-            for (int i = 0, n = 10; i < n; i++) {
+            for (int i = 0, n = 2; i < n; i++) {
                 Message message = messages[i];
-                // Run the search term
-                if (searchTerm.match(message)) {
-                    System.out.println("---------------------------------");
-                    System.out.println("Email Number " + (i + 1));
-                    System.out.println("Subject: " + message.getSubject());
-                    System.out.println("From: " + message.getFrom()[0]);
-                    System.out.println("Text: " + message.getContent().toString());
-                    message.writeTo(System.out);
-                }
+                System.out.println("---------------------------------");
+                System.out.println("Email Number " + (i + 1));
+                System.out.println("Subject: " + message.getSubject());
+                System.out.println("From: " + message.getFrom()[0]);
+                System.out.println("Text: " + message.getContent().toString());
+                message.writeTo(System.out);
             }
 
             // Close the store and folder, don't expunge
@@ -86,7 +89,11 @@ public class SearchMailsClientSide {
 
         @Override
         public boolean match(Message message) {
-            return sentDateTerm.match(message) && recipientStringTerm.match(message);
+            if (sentDateTerm.match(message) && recipientStringTerm.match(message)) {
+                return true;
+            }
+
+            return false;
         }
     }
 }

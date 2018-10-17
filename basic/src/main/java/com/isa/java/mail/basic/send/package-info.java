@@ -8,4 +8,4 @@
  * Gmail SMTP port (SSL): 465
  * Gmail SMTP TLS/SSL required: yes
  */
-package com.isa.java.mail.send;
+package com.isa.java.mail.basic.send;

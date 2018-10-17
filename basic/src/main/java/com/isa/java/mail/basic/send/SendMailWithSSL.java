@@ -1,6 +1,6 @@
-package com.isa.java.mail.send;
+package com.isa.java.mail.basic.send;
 
-import com.isa.java.mail.util.ApplicationProperties.GmailSmtpProperties;
+import com.isa.java.mail.basic.util.ApplicationProperties.GmailSmtpProperties;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 import javax.mail.Address;
@@ -12,21 +12,19 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class SendMail {
+public class SendMailWithSSL {
 
     private static final GmailSmtpProperties SMTP_PROPERTIES = new GmailSmtpProperties();
 
     public static void main(String[] args) {
-        check(SMTP_PROPERTIES.getHost(), SMTP_PROPERTIES.getTlsPort(), SMTP_PROPERTIES.getUsername(),
+        check(SMTP_PROPERTIES.getHost(), SMTP_PROPERTIES.getSslPort(), SMTP_PROPERTIES.getUsername(),
                 SMTP_PROPERTIES.getPassword());
     }
 
     public static void check(String host, int port, String user, String password) {
-        // Get session with properties
-        Properties properties = new Properties();
-        properties.setProperty("mail.smtp.starttls.enable", "true");
-        Session session = Session.getInstance(properties);
-
+        Properties props = new Properties();
+        props.setProperty("mail.smtp.ssl.enable", "true");
+        Session session = Session.getInstance(props);
         try {
             // Construct the message
             Message message = new MimeMessage(session);

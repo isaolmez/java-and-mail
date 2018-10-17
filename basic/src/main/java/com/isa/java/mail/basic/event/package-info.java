@@ -8,4 +8,4 @@
  * Gmail IMAP port: 993
  * Gmail IMAP TLS/SSL required: yes
  */
-package com.isa.java.mail.event;
+package com.isa.java.mail.basic.event;

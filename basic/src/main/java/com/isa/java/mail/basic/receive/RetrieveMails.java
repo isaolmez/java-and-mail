@@ -1,6 +1,6 @@
-package com.isa.java.mail.receive;
+package com.isa.java.mail.basic.receive;
 
-import com.isa.java.mail.util.ApplicationProperties.GmailPopProperties;
+import com.isa.java.mail.basic.util.ApplicationProperties.GmailPopProperties;
 import java.util.Properties;
 import javax.mail.Folder;
 import javax.mail.Message;

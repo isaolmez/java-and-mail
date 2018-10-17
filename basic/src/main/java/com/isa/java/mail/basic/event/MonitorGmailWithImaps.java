@@ -1,6 +1,6 @@
-package com.isa.java.mail.event;
+package com.isa.java.mail.basic.event;
 
-import com.isa.java.mail.util.ApplicationProperties.GmailImapProperties;
+import com.isa.java.mail.basic.util.ApplicationProperties.GmailImapProperties;
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPStore;
 import java.util.Properties;
