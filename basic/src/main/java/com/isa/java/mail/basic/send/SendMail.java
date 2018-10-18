@@ -17,8 +17,10 @@ public class SendMail {
     private static final GmailSmtpProperties SMTP_PROPERTIES = new GmailSmtpProperties();
 
     public static void main(String[] args) {
-        check(SMTP_PROPERTIES.getHost(), SMTP_PROPERTIES.getTlsPort(), SMTP_PROPERTIES.getUsername(),
-                SMTP_PROPERTIES.getPassword());
+        check(SMTP_PROPERTIES.getHost(),
+              SMTP_PROPERTIES.getTlsPort(),
+              SMTP_PROPERTIES.getUsername(),
+              SMTP_PROPERTIES.getPassword());
     }
 
     public static void check(String host, int port, String user, String password) {
